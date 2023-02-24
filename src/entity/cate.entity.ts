@@ -20,6 +20,9 @@ export class Cate {
   @Column()
   parentId: number
 
+  @Column({ length: 100 })
+  path: string
+
   @CreateDateColumn({
     type: 'timestamp',
   })

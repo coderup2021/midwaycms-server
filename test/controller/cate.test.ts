@@ -1,8 +1,6 @@
 import { createApp, close, createHttpRequest } from '@midwayjs/mock'
 import { Framework } from '@midwayjs/web'
 import { Application } from 'egg'
-import { execFileSync, execSync } from 'child_process'
-import * as path from 'path'
 import { faker } from '@faker-js/faker'
 import { clearDB } from '../util/clearDBTable'
 
@@ -26,6 +24,7 @@ describe('test/controller/cate.test.ts', () => {
     result = await createHttpRequest(app).post('/api/cate').send({
       name,
       parentId,
+      path: '/x/y/z/',
     })
 
     id = result.body.data.id
@@ -40,6 +39,7 @@ describe('test/controller/cate.test.ts', () => {
     expect(result.body.data).toMatchObject({
       name,
       parentId,
+      path: '/x/y/z/',
     })
 
     //getList
@@ -49,12 +49,13 @@ describe('test/controller/cate.test.ts', () => {
     const data = result.body.data
     expect(data.length).toBeGreaterThan(0)
     const cate = data[data.length - 1]
-    expect(cate).toMatchObject({ name, parentId })
+    expect(cate).toMatchObject({ name, parentId, path: '/x/y/z/' })
 
     //put
     result = await createHttpRequest(app).put(`/api/cate/${id}`).send({
       name: 'abc',
       parentId: 0,
+      path: '/x/y/z/abc/',
     })
 
     expect(result.status).toBe(200)

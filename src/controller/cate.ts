@@ -35,7 +35,7 @@ export class CateController {
 
   @Post('/')
   async create(@Body() body: ICate) {
-    const { name, parentId } = body
+    const { name, parentId, path } = body
     if (!this.service.exists({ parentId })) {
       throw new MidwayHttpError('parentCateNotExist', HttpStatus.BAD_REQUEST)
       return
@@ -43,13 +43,14 @@ export class CateController {
     const { id } = await this.service.create({
       name,
       parentId,
+      path,
     })
     return { status: 0, data: { id } }
   }
 
   @Put('/:id')
   async update(@Param('id') id: number, @Body() body: ICate) {
-    const { name, parentId } = body
+    const { name, parentId, path } = body
     if (parentId !== 0 && !this.service.exists({ parentId })) {
       throw new MidwayHttpError('parentCateNotExist', HttpStatus.BAD_REQUEST)
       return
@@ -62,6 +63,7 @@ export class CateController {
       id,
       name,
       parentId,
+      path,
     })
     return { status: 0, data: { id } }
   }

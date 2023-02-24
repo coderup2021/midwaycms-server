@@ -19,10 +19,11 @@ export class CateService {
 
   // save
   async create(param: ICate) {
-    const { name, parentId } = param
+    const { name, parentId, path } = param
     const cate = new Cate()
     cate.name = name
     cate.parentId = parentId
+    cate.path = path
     const { id } = await this.model.save(cate)
     return { id }
   }

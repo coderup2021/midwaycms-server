@@ -27,31 +27,33 @@ export class ArticleController {
 
   @Get('/')
   async list() {
-    const list = await this.service.queryBy({})
+    const list = await this.service.queryManyBy({})
     return { status: 0, data: list }
   }
 
   @Post('/')
   async create(@Body() body: IArticle) {
-    const { title, content, description, editorType } = body
+    const { title, content, description, editorType, cateId } = body
     const { id } = await this.service.create({
       title,
       content,
       description,
       editorType,
+      cateId,
     })
     return { status: 0, data: { id } }
   }
 
   @Put('/:id')
   async update(@Param('id') id: number, @Body() body: IArticle) {
-    const { editorType, title, content, description } = body
+    const { editorType, title, content, description, cateId } = body
     await this.service.update({
       title,
       content,
       description,
       editorType,
       id,
+      cateId,
     })
     return { status: 0, data: { id } }
   }

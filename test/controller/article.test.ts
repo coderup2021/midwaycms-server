@@ -6,10 +6,20 @@ import { clearDB } from '../util/clearDBTable'
 
 describe('test/controller/article.test.ts', () => {
   let app: Application
+  let cateId: 0
 
   beforeAll(async () => {
     await clearDB()
     app = await createApp<Framework>()
+
+    const name = faker.internet.userName()
+    const parentId = 0
+    result = await createHttpRequest(app).post('/api/cate').send({
+      name,
+      parentId,
+      path: '/x/y/z/',
+    })
+    cateId = result.body.data.id
   })
 
   afterAll(async () => {
@@ -23,6 +33,7 @@ describe('test/controller/article.test.ts', () => {
       title: faker.lorem.sentence(),
       content: faker.lorem.paragraphs(),
       description: faker.lorem.paragraph(),
+      cateId,
       editorType: 1,
     }
     result = await createHttpRequest(app)
@@ -31,6 +42,7 @@ describe('test/controller/article.test.ts', () => {
 
     id = result.body.data.id
     expect(result.status).toBe(200)
+    console.log('result.body', result.body)
     expect(result.body.data.id).toBeGreaterThan(0)
     expect(result.body.status).toBe(0)
 
@@ -38,7 +50,14 @@ describe('test/controller/article.test.ts', () => {
     result = await createHttpRequest(app).get(`/api/article/${id}`)
     expect(result.status).toBe(200)
     expect(result.body.status).toBe(0)
-    expect(result.body.data).toMatchObject(articleContent)
+
+    const { title, content, description, editorType } = articleContent
+    expect(result.body.data).toMatchObject({
+      title,
+      content,
+      description,
+      editorType,
+    })
 
     //getList
     result = await createHttpRequest(app).get(`/api/article`)
@@ -47,13 +66,14 @@ describe('test/controller/article.test.ts', () => {
     const data = result.body.data
     expect(data.length).toBeGreaterThan(0)
     const article = data[data.length - 1]
-    expect(article).toMatchObject(articleContent)
+    expect(article).toMatchObject({ title, content, description, editorType })
 
     //put
     const articleContentUpdate = {
       title: faker.lorem.sentence(),
       content: faker.lorem.paragraphs(),
       description: faker.lorem.paragraph(),
+      cateId,
       editorType: 1,
     }
     result = await createHttpRequest(app)
@@ -68,7 +88,19 @@ describe('test/controller/article.test.ts', () => {
     result = await createHttpRequest(app).get(`/api/article/${id}`)
     expect(result.status).toBe(200)
     expect(result.body.status).toBe(0)
-    expect(result.body.data).toMatchObject(articleContentUpdate)
+    const {
+      title: titleUpdate,
+      content: contentUpdate,
+      description: descriptionUpdate,
+      editorType: editorTypeUpdate,
+    } = articleContentUpdate
+
+    expect(result.body.data).toMatchObject({
+      title: titleUpdate,
+      content: contentUpdate,
+      description: descriptionUpdate,
+      editorType: editorTypeUpdate,
+    })
 
     //delete
     result = await createHttpRequest(app).delete(`/api/article/${id}`)

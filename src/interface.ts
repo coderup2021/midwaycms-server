@@ -25,6 +25,8 @@ export interface IArticle {
   content: string
   description: string
   editorType: number
+  cateId: number
+  cate?: ICate
   deletedAt?: string
   createdAt?: string
   updatedAt?: string
@@ -34,4 +36,6 @@ export interface ICate {
   id?: number
   name: string
   parentId: number
+  path: string
+  articles?: IArticle[]
 }
