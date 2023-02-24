@@ -10,5 +10,20 @@ export default (appInfo: MidwayAppInfo) => {
     // security: {
     //   csrf: false,
     // },
+    typeorm: {
+      dataSource: {
+        default: {
+          // ...
+          entities: ['**/entity/*{.ts,.js}'],
+          migrations: ['**/migration/*.ts'],
+          type: 'mysql',
+          driver: require('mysql2'),
+          database: 'midway_cms',
+          username: 'root',
+          password: 'root',
+          port: 3306,
+        },
+      },
+    },
   } as MidwayConfig
 }

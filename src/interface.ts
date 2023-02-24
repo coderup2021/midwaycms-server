@@ -10,3 +10,13 @@ export interface IGetUserResponse {
   message: string
   data: IUserOptions
 }
+
+export interface IArticle {
+  title: string
+  content: string
+  description: string
+  id?: number
+  deletedAt?: string
+  createdAt?: string
+  updatedAt?: string
+}
