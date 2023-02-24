@@ -1,4 +1,3 @@
-import { ICate } from 'src/interface'
 import {
   Entity,
   Column,
@@ -6,26 +5,20 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   DeleteDateColumn,
-  ManyToOne,
+  OneToMany,
 } from 'typeorm'
-import { Cate } from './cate.entity'
+import { Article } from './article.entity'
 
 @Entity()
-export class Article {
+export class Cate {
   @PrimaryGeneratedColumn()
   id: number
 
   @Column({ length: 100 })
-  title: string
-
-  @Column('text')
-  content: string
-
-  @Column('text')
-  description: string
+  name: string
 
   @Column()
-  editorType: number //编辑器类型，1:markdown, 2:WangEditor
+  parentId: number
 
   @CreateDateColumn({
     type: 'timestamp',
@@ -42,6 +35,6 @@ export class Article {
   })
   deletedAt: Date
 
-  @ManyToOne(() => Cate, (cate) => cate.articles)
-  cate: Cate
+  @OneToMany(() => Article, (article) => article.cate)
+  articles: Article[]
 }

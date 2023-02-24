@@ -16,6 +16,7 @@
   "devDependencies": {
     "@commitlint/cli": "^17.4.4",
     "@commitlint/config-conventional": "^17.4.4",
+    "@faker-js/faker": "^7.6.0",
     "@midwayjs/cli": "^2.0.0",
     "@midwayjs/egg-ts-helper": "^1.0.1",
     "@midwayjs/mock": "^3.0.0",
@@ -29,6 +30,7 @@
     "lint-staged": "^13.1.2",
     "mwts": "^1.0.5",
     "ts-jest": "^29.0.3",
+    "ts-node": "^10.9.1",
     "typescript": "~4.8.0"
   },
   "engines": {
@@ -37,15 +39,17 @@
   "scripts": {
     "start": "node bootstrap.js",
     "dev": "cross-env ets && cross-env NODE_ENV=local midway-bin dev --ts",
+    "m:gen": "npx mwtypeorm migration:generate -d ./src/config/config.default.ts",
     "m:run": "npx tsc src/migration/*.ts && npx mwtypeorm migration:run -d src/config/config.default.ts",
     "m:revert": "npx tsc src/migration/*.ts && npx mwtypeorm migration:revert -d src/config/config.default.ts",
     "m:show": "npx mwtypeorm migration:show -d src/config/config.default.ts",
     "m:run:test": "npx tsc src/migration/*.ts && npx mwtypeorm migration:run -d src/config/config.unittest.ts",
     "m:revert:test": "npx tsc src/migration/*.ts && npx mwtypeorm migration:revert -d src/config/config.unittest.ts",
     "m:show:test": "npx mwtypeorm migration:show -d src/config/config.unittest.ts",
-    "test": "pnpm startTestMysql && midway-bin test --ts && pnpm stopTestMysql",
-    "startTestMysql": "docker start test-mysql-env",
-    "stopTestMysql": "docker stop test-mysql-env",
+    "test": "pnpm test:startMysql && midway-bin test --ts && pnpm test:stopMysql",
+    "testOne": "midway-bin test --ts -f",
+    "test:startMysql": "docker start test-mysql-env",
+    "test:stopMysql": "docker stop test-mysql-env",
     "runMysql": "docker run -d --name test-mysql-env -e MYSQL_ROOT_PASSWORD=Aa123456 -p 3310:3306 ubuntu/mysql:8.0-20.04_beta",
     "cov": "midway-bin cov --ts",
     "lint": "eslint --ext .ts,.js, --fix --quiet ./src",

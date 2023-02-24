@@ -16,6 +16,7 @@ export default {
         type: 'mysql',
         driver: require('mysql2'),
         database: 'midway_cms',
+        host: 'localhost',
         username: 'root',
         password: 'Aa123456',
         port: 3310,

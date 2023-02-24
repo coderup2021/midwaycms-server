@@ -11,11 +11,12 @@ export class ArticleService {
 
   // save
   async create(param: IArticle) {
-    const { content, title, description } = param
+    const { content, title, description, editorType } = param
     const article = new Article()
     article.content = content
     article.title = title
     article.description = description
+    article.editorType = editorType
     const { id } = await this.model.save(article)
     return { id }
   }

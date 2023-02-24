@@ -20,11 +20,18 @@ export interface SystemResponse<T> {
 }
 
 export interface IArticle {
+  id?: number
   title: string
   content: string
   description: string
-  id?: number
+  editorType: number
   deletedAt?: string
   createdAt?: string
   updatedAt?: string
+}
+
+export interface ICate {
+  id?: number
+  name: string
+  parentId: number
 }
