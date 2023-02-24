@@ -3,6 +3,7 @@ import { Application } from 'egg'
 import { join } from 'path'
 import * as egg from '@midwayjs/web'
 import * as orm from '@midwayjs/typeorm'
+import { DefaultErrorHandler } from './filter/default.filter'
 
 @Configuration({
   imports: [egg, orm],
@@ -12,5 +13,7 @@ export class ContainerLifeCycle implements ILifeCycle {
   @App()
   app: Application
 
-  async onReady() {}
+  async onReady() {
+    this.app.useFilter([DefaultErrorHandler])
+  }
 }
