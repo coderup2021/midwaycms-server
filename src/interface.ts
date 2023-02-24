@@ -15,11 +15,8 @@ export interface IGetUserResponse {
 
 export interface SystemResponse<T> {
   status: 0 | -1
-  data?: T
-  error?: {
-    status: HttpStatus
-    message: string
-  }
+  data: T
+  message: string
 }
 
 export interface IArticle {

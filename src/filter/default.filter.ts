@@ -7,10 +7,8 @@ export class DefaultErrorHandler {
   async catch(err: any, ctx: Context) {
     return {
       status: -1,
-      error: {
-        status: err.status ?? 500,
-        message: err.message,
-      },
+      data: {},
+      message: err.message,
     } as SystemResponse<any>
   }
 }
