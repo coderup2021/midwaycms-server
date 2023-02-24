@@ -1,7 +1,7 @@
-import { App, Configuration, ILifeCycle } from '@midwayjs/core';
-import { Application } from 'egg';
-import { join } from 'path';
-import * as egg from '@midwayjs/web';
+import { App, Configuration, ILifeCycle } from '@midwayjs/core'
+import { Application } from 'egg'
+import { join } from 'path'
+import * as egg from '@midwayjs/web'
 
 @Configuration({
   imports: [egg],
@@ -9,7 +9,7 @@ import * as egg from '@midwayjs/web';
 })
 export class ContainerLifeCycle implements ILifeCycle {
   @App()
-  app: Application;
+  app: Application
 
   async onReady() {}
 }

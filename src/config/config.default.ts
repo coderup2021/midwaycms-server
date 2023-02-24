@@ -1,4 +1,4 @@
-import { MidwayConfig, MidwayAppInfo } from '@midwayjs/core';
+import { MidwayConfig, MidwayAppInfo } from '@midwayjs/core'
 
 export default (appInfo: MidwayAppInfo) => {
   return {
@@ -10,5 +10,5 @@ export default (appInfo: MidwayAppInfo) => {
     // security: {
     //   csrf: false,
     // },
-  } as MidwayConfig;
-};
+  } as MidwayConfig
+}

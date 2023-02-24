@@ -1,7 +1,7 @@
-import { EggAppConfig, PowerPartial } from 'egg';
-import { MidwayConfig } from '@midwayjs/core';
+import { EggAppConfig, PowerPartial } from 'egg'
+import { MidwayConfig } from '@midwayjs/core'
 
-export type DefaultConfig = PowerPartial<EggAppConfig>;
+export type DefaultConfig = PowerPartial<EggAppConfig>
 
 export default {
   egg: {
@@ -10,4 +10,4 @@ export default {
   security: {
     csrf: false,
   },
-} as MidwayConfig & DefaultConfig;
+} as MidwayConfig & DefaultConfig
